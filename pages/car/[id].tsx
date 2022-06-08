@@ -13,8 +13,8 @@ const CarDetails = ({ car }: { car: Cars }) => {
                 alt={car.title}
                 loader={imageLoader}
                 unoptimized
-                width={100}
-                height={100}
+                width={500}
+                height={400}
             />
         </div>
     );
@@ -24,10 +24,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const res = await fetch(
         `https://api.staging.myautochek.com/v1/inventory/car/${context.query.id}`
     );
-    const character = await res.json();
+    const car = await res.json();
     return {
         props: {
-            character,
+            car,
         },
     };
 };

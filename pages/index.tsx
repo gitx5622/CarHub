@@ -2,7 +2,7 @@ import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import ListAllCars from "../components/cars/listCars";
 import Navbar from "../components/navbar";
-import { CarResults, Cars, Pagination } from "../components/types";
+import {CarResults, Cars, Pagination, PopularCarResults, PopularCars} from "../components/types";
 import "antd/dist/antd.css";
 import CarouselAuto from "../components/carousal";
 
@@ -36,5 +36,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     },
   };
 };
+
 
 export default Home;

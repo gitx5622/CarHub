@@ -1,21 +1,34 @@
 import React from "react";
 import { CarResults } from "../types";
-import {Avatar, Card, Row, Col, Divider, Pagination, Tag} from 'antd';
+import {Avatar, Card, Row, Col, Divider, Pagination, Tag, Button} from 'antd';
 import Image from "next/image";
 import imageLoader from "../imageLoader";
 import styles from 'styled-components';
+import Link from "next/link";
 
 const { Meta } = Card;
 
-const style: React.CSSProperties = {paddingLeft: '2em'};
+const HeaderDiv: React.CSSProperties = {
+    display: 'flex',
+    justifyContent: 'space-between',
+    paddingLeft: '2em',
+    paddingRight: '2em',
+    lineHeight: '0.5',
+
+};
+
+const style: React.CSSProperties = {
+    paddingLeft: '2em'
+
+};
 
 const ListAllCars = ({ result, pagination }: CarResults) => {
   return (
     <div>
-        <HeaderDiv>
+        <div style={HeaderDiv}>
             <h1>Cars for Sale in Kenya:</h1>
             <h4>Results: {pagination.total}</h4>
-        </HeaderDiv>
+        </div>
         <Divider/>
         <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                     {result.map((car) => (
@@ -33,16 +46,18 @@ const ListAllCars = ({ result, pagination }: CarResults) => {
                                         width={300} height={200}/>
                                 }
                                 actions={[
-                                    <Tag key="fuel" color="cyan">${car.fuelType}</Tag>,
-                                    <Tag key="city" color="blue">${car.city}</Tag>,
-                                    <Tag key="installment" color="geekblue">${car.installment}</Tag>,
+                                    <Tag key="fuel" color="cyan">{car.fuelType}</Tag>,
+                                    <Tag key="city" color="blue">{car.city}</Tag>,
+                                    <Tag key="installment" color="geekblue">{car.transmission}</Tag>,
                                 ]}
                             >
-                                <Meta
-                                    avatar={<Avatar src={car.imageUrl} />}
-                                    title={car.title}
-                                    description={car.transmission}
-                                />
+                                    <Meta
+                                        avatar={<Avatar src={car.imageUrl} />}
+                                        title={car.title}
+                                        description={`Amount:   ${car.marketplacePrice < 100000 ?
+                                            `$ ${car.marketplacePrice}` : `Kshs ${car.marketplacePrice}`}`}
+                                    /><br/>
+                                <Button type="primary" block color="blue" href={`/car/${car.id}`}>View Model</Button>
                             </Card><br/>
                         </Col>
                             </div>
@@ -54,11 +69,4 @@ const ListAllCars = ({ result, pagination }: CarResults) => {
   );
 };
 
-const HeaderDiv = styles.div`
-    display: flex;
-    justify-content: space-between;
-    padding-left: 2em;
-    padding-right: 2em;
-    line-height: 0.5;
-`;
 export default ListAllCars;

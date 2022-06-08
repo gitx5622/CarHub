@@ -1,6 +1,17 @@
+export interface PopularCarResults {
+  makeList: PopularCars[];
+  pagination: Pagination;
+}
+
 export interface CarResults {
   result: Cars[];
   pagination: Pagination;
+}
+
+export interface PopularCars {
+  id: number;
+  name: string;
+  imageUrl: string;
 }
 
 export interface Pagination {
