@@ -9,9 +9,7 @@ const Navbar: React.FC = () => {
     <div>
       <Layout>
         <NavBar>
-          <LogoDiv>
-            CarHub
-          </LogoDiv>
+          <LogoDiv>CarHub</LogoDiv>
         </NavBar>
       </Layout>
     </div>
@@ -19,12 +17,12 @@ const Navbar: React.FC = () => {
 };
 
 const LogoDiv = styles.div`
-    color: white
+    color: white;
 `;
 
 const NavBar = styles(Header)`
     background-color: #1a7bc8;
-    color: white
+    color: white;
 `;
 
 export default Navbar;
