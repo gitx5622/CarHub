@@ -2,21 +2,26 @@ import React from "react";
 import { Layout } from "antd";
 
 const LogoDiv: React.CSSProperties = {
-    color: 'white',
+  color: "white",
 };
 
 const NavBar: React.CSSProperties = {
-    backgroundColor: '#1990ff',
-    color: 'white',
-    height: '50px',
-    position: "sticky",
-    top: 0,
+  backgroundColor: "#1990ff",
+  color: "white",
+  height: "50px",
+  position: "sticky",
+  top: 0,
+};
+
+const LayoutStyle: React.CSSProperties = {
+  position: "sticky",
+  top: 0,
 };
 
 const Navbar: React.FC = () => {
   return (
     <div>
-      <Layout>
+      <Layout style={LayoutStyle}>
         <div style={NavBar}>
           <div style={LogoDiv}>CarHub</div>
         </div>
