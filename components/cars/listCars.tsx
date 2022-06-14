@@ -4,6 +4,7 @@ import {Avatar, Button, Card, Col, Divider, Input, Row, Tag} from "antd";
 import Image from "next/image";
 import imageLoader from "../imageLoader";
 import styled from "styled-components";
+import {GetServerSideProps} from "next";
 
 const {Meta} = Card;
 
@@ -61,7 +62,7 @@ const ListAllCars = ({result, pagination}: CarResults) => {
             </div>
             <Divider/>
             <Row gutter={[16, 16]}>
-                {result.slice(1, result.length - 3).map((car) => (
+                {result?.slice(1, result.length - 3)?.map((car) => (
                     <div key={car.id}>
                         <StyleDiv>
                             <Col className="gutter-row" sm={24} md={6}>
@@ -132,6 +133,19 @@ const ListAllCars = ({result, pagination}: CarResults) => {
             </Row>
         </div>
     );
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const res = await fetch(
+        "https://api.staging.myautochek.com/v1/inventory/car/search"
+    );
+    const {result, pagination}: CarResults = await res.json();
+    return {
+        props: {
+            result,
+            pagination,
+        },
+    };
 };
 
 export default ListAllCars;
