@@ -2,6 +2,7 @@ import React from "react";
 import {PopularCarResults} from "../types";
 import {Avatar, Card, Col, Divider, Row, Tag} from "antd";
 import Link from "next/link";
+import styled from "styled-components";
 
 const {Meta} = Card;
 
@@ -14,33 +15,42 @@ const HeaderDiv: React.CSSProperties = {
     color: "#1990ff",
 };
 
-const style: React.CSSProperties = {
-    paddingLeft: "2em",
-};
+const StyleDiv = styled.div`
+  padding-left: 3em;
+  @media only screen and (max-width: 768px) {
+    padding-left: 7em;
+  }
+`;
+
+const TagDiv = styled.div`
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
+`;
 
 const PopularCarsComponent = ({makeList, pagination}: PopularCarResults) => {
     return (
         <div>
             <div style={HeaderDiv}>
                 <h1>Popular Car Brands: </h1>
-                <div>
+                <TagDiv>
                     {makeList.map((make) => (
                         <Tag key={make.id} color="#108ee9">
                             {make.name}
                         </Tag>
                     ))}
-                </div>
+                </TagDiv>
                 <h2>Total brands: <Tag color="#108ee9">
                     {pagination.total}
                 </Tag></h2>
             </div>
             <Divider/>
-            <Row gutter={{xs: 8, sm: 16, md: 24, lg: 32}}>
+            <Row gutter={[16, 16]}>
                 {makeList.map((car) => (
-                    <div key={car.id}>
-                        <div style={style}>
-                            <Col className="gutter-row" span={6}>
-                                <Card style={{width: 300}}>
+                    <StyleDiv key={car.id}>
+                        <div>
+                            <Col sm={24} md={6}>
+                                <Card style={{minWidth: 300}}>
                                     <Link href={`/car/${car.id}`}>
                                         <Meta
                                             avatar={<Avatar src={car.imageUrl}/>}
@@ -51,7 +61,7 @@ const PopularCarsComponent = ({makeList, pagination}: PopularCarResults) => {
                                 <br/>
                             </Col>
                         </div>
-                    </div>
+                    </StyleDiv>
                 ))}
             </Row>
         </div>

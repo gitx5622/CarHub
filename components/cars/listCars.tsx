@@ -3,6 +3,7 @@ import {CarResults} from "../types";
 import {Avatar, Button, Card, Col, Divider, Input, Row, Tag} from "antd";
 import Image from "next/image";
 import imageLoader from "../imageLoader";
+import styled from "styled-components";
 
 const {Meta} = Card;
 
@@ -14,16 +15,24 @@ const HeaderDiv: React.CSSProperties = {
     lineHeight: "0.5",
 };
 
-const style: React.CSSProperties = {
-    paddingLeft: "2em",
-};
+const StyleDiv = styled.div`
+  padding-left: 3em;
+  @media only screen and (max-width: 768px) {
+    padding-left: 7em;
+  }
+`;
 
+const SearchDiv = styled.div`
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
+`;
 const ListAllCars = ({result, pagination}: CarResults) => {
     return (
         <div>
             <div style={HeaderDiv}>
                 <h1>Cars for Sale in Kenya:</h1>
-                <div>
+                <SearchDiv>
                     <Input.Group>
                         <Input
                             style={{
@@ -32,7 +41,7 @@ const ListAllCars = ({result, pagination}: CarResults) => {
                                 borderBottomLeftRadius: "20px",
                             }}
                             size="large"
-                            defaultValue="https://ant.design"
+                            placeholder="https://ant.design"
                         />
                         <Button
                             type="primary"
@@ -45,19 +54,23 @@ const ListAllCars = ({result, pagination}: CarResults) => {
                             Search
                         </Button>
                     </Input.Group>
-                </div>
-                <h2>
+                </SearchDiv>
+                <SearchDiv>
                     Total Cars: <Tag color="#108ee9">{pagination.total}</Tag>
-                </h2>
+                </SearchDiv>
             </div>
             <Divider/>
-            <Row gutter={{xs: 8, sm: 16, md: 24, lg: 32}}>
-                {result.map((car) => (
+            <Row gutter={[16, 16]}>
+                {result.slice(1, result.length - 3).map((car) => (
                     <div key={car.id}>
-                        <div style={style}>
-                            <Col className="gutter-row" span={6}>
+                        <StyleDiv>
+                            <Col className="gutter-row" sm={24} md={6}>
                                 <Card
-                                    style={{width: 300, border: "1px solid #1990ff"}}
+                                    style={{
+                                        width: 300,
+                                        border: "1px solid #1990ff",
+                                        fontFamily: "Quicksand, sans-serif",
+                                    }}
                                     cover={
                                         <Image
                                             src={car.imageUrl}
@@ -69,14 +82,26 @@ const ListAllCars = ({result, pagination}: CarResults) => {
                                         />
                                     }
                                     actions={[
-                                        <Tag key="fuel" color="cyan">
-                                            {car.fuelType}
+                                        <Tag
+                                            style={{marginLeft: "-20px"}}
+                                            key="installment"
+                                            color="geekblue"
+                                        >
+                                            {car.transmission}
                                         </Tag>,
-                                        <Tag key="city" color="blue">
+                                        <Tag
+                                            style={{marginLeft: "-20px"}}
+                                            key="city"
+                                            color="blue"
+                                        >
                                             {car.city}
                                         </Tag>,
-                                        <Tag key="installment" color="geekblue">
-                                            {car.transmission}
+                                        <Tag
+                                            style={{marginLeft: "-20px"}}
+                                            key="fuel"
+                                            color="cyan"
+                                        >
+                                            {car.fuelType}
                                         </Tag>,
                                     ]}
                                 >
@@ -101,7 +126,7 @@ const ListAllCars = ({result, pagination}: CarResults) => {
                                 </Card>
                                 <br/>
                             </Col>
-                        </div>
+                        </StyleDiv>
                     </div>
                 ))}
             </Row>
