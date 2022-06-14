@@ -5,7 +5,6 @@ import Navbar from "../components/navbar";
 import {CarResults, Cars, Pagination, PopularCarResults, PopularCars,} from "../components/types";
 import CarouselAuto from "../components/carousal";
 import PopularCarsComponent from "../components/cars/popularCars";
-import {Divider} from "antd";
 
 const Home: NextPage<{
     result: Cars[];
@@ -31,7 +30,6 @@ const Home: NextPage<{
                 makeList={makeList}
                 pagination={popularCarsPagination}
             />
-            <Divider/>
             <ListAllCars result={result} pagination={carResultPagination}/>
         </div>
     );
