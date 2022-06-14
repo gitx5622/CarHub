@@ -38,21 +38,22 @@ const Home: NextPage<{
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const carResponse = await fetch(
-        "https://api.staging.myautochek.com/v1/inventory/car/search"
-    );
-    const {result, pagination: carResultPagination}: CarResults = await carResponse.json();
-    const popularCarsResponse = await fetch(
-        "https://api.staging.myautochek.com/v1/inventory/make?popular=true"
-    );
-    const {makeList, pagination: popularCarsPagination}: PopularCarResults =
-        await popularCarsResponse.json();
+    const [carResponse, popularCarsResponse] = await Promise.all([
+        fetch(`https://api.staging.myautochek.com/v1/inventory/car/search`),
+        fetch(`https://api.staging.myautochek.com/v1/inventory/make?popular=true`)
+    ]);
+    const [results, popularCars] = await Promise.all([
+        carResponse.json(),
+        popularCarsResponse.json()
+    ]);
+    const {result, pagination: carsPagination}: CarResults = results;
+    const {makeList, pagination}: PopularCarResults = popularCars;
     return {
         props: {
             result,
-            carResultPagination,
             makeList,
-            popularCarsPagination,
+            carsPagination,
+            pagination,
         },
     };
 };
