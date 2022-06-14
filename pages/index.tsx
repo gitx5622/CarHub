@@ -9,10 +9,10 @@ import {Divider} from "antd";
 
 const Home: NextPage<{
     result: Cars[];
-    pagination: Pagination;
+    carResultPagination: Pagination;
     makeList: PopularCars[];
     popularCarsPagination: Pagination;
-}> = ({result, pagination, makeList, popularCarsPagination}) => {
+}> = ({result, carResultPagination, makeList, popularCarsPagination}) => {
     return (
         <div>
             <Head>
@@ -32,16 +32,16 @@ const Home: NextPage<{
                 pagination={popularCarsPagination}
             />
             <Divider/>
-            <ListAllCars result={result} pagination={pagination}/>
+            <ListAllCars result={result} pagination={carResultPagination}/>
         </div>
     );
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const res = await fetch(
+    const carResponse = await fetch(
         "https://api.staging.myautochek.com/v1/inventory/car/search"
     );
-    const {result, pagination}: CarResults = await res.json();
+    const {result, pagination: carResultPagination}: CarResults = await carResponse.json();
     const popularCarsResponse = await fetch(
         "https://api.staging.myautochek.com/v1/inventory/make?popular=true"
     );
@@ -50,7 +50,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return {
         props: {
             result,
-            pagination,
+            carResultPagination,
             makeList,
             popularCarsPagination,
         },

@@ -61,7 +61,7 @@ const ListAllCars = ({result, pagination}: CarResults) => {
             </div>
             <Divider/>
             <Row gutter={[16, 16]}>
-                {result?.slice(1, result.length - 3).map((car) => (
+                {result?.map((car) => (
                     <div key={car.id}>
                         <StyleDiv>
                             <Col className="gutter-row" sm={24} md={6}>

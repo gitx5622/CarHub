@@ -34,19 +34,19 @@ const PopularCarsComponent = ({makeList, pagination}: PopularCarResults) => {
             <div style={HeaderDiv}>
                 <h1>Popular Car Brands: </h1>
                 <TagDiv>
-                    {makeList.map((make) => (
+                    {makeList?.map((make) => (
                         <Tag key={make.id} color="#108ee9">
                             {make.name}
                         </Tag>
                     ))}
                 </TagDiv>
                 <h2>Total brands: <Tag color="#108ee9">
-                    {pagination.total}
+                    {pagination?.total}
                 </Tag></h2>
             </div>
             <Divider/>
             <Row gutter={[16, 16]}>
-                {makeList.map((car) => (
+                {makeList?.map((car) => (
                     <StyleDiv key={car.id}>
                         <div>
                             <Col sm={24} md={6}>
